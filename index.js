@@ -8,16 +8,14 @@ const connect = mongoose.connect(url, {
     useUnifiedTopology: true
 });
 
-connect.then(()=>{
-    
+connect.then(() => {
+
     console.log('Connected correctly to server');
 
-    const newCampsite = new Campsite({
-        name: 'React Lake Campsite',
+    Campsite.create({
+        name: 'React Lake Campground',
         description: 'test'
-    });
-
-    newCampsite.save()
+    })
     .then(campsite => {
         console.log(campsite);
         return Campsite.find();
@@ -26,7 +24,7 @@ connect.then(()=>{
         console.log(campsites);
         return Campsite.deleteMany();
     })
-    .then(()=> {
+    .then(() => {
         return mongoose.connection.close();
     })
     .catch(err => {
